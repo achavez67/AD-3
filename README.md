@@ -19,67 +19,37 @@
 
 
 <h2>Practice</h2>
+We are going to practice our new skills by creating many users and apply what we learned about active directory.
 
 <p>
+<img src="https://i.imgur.com/KlwI3VA.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <img src="https://i.imgur.com/vj32xA3.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-We will create 1000 users via Powershell ISE using a script. We will do this by entering a script and running it 
+We will create 1000 users via Powershell ISE using a script. We will do this by entering the script above and running it. 
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/YG73wrc.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/icqAkuA.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-After installing Active Directory Domain Services, our machine is not quite yet a domain controller, so we will need to set it up. We go to the top right corner in Server Manager and we will see a flag with an exclamation mark. We'll click it->click on "Promote this server to a domain controller"->add a new forest->create a domain name that ends in ".com". (I will call it "mydomain.com" in this lab).->create a password
-</p>
-<br />
-
-<p>
-<img src="https://i.imgur.com/ck9Iqsb.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-After installing, we will need to logout of our DC-1 machine, and log back in as user "mydomain.com\[username]". We will go to "Active Directory Users and Computers", right click on "mydomain.com" and create two Organizatinal Units. One named "_EMPLOYEES" and the other named "_ADMINS"(putting an "_" before the name and making it all caps makes it easier to distinguish organizational units that were created by the user)
+We will go back to "Active Directory Users and Computers"->mydomain.com->_EMPLOYEES->*choose any user, just write down the name to remember it*->right click->properties->copy name.
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/JdHNbkA.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/XLGdVAn.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-We are going to create an admin account by going to "_ADMINS"->right click->new user. For the purposes of this project, we are going to use the name "Jane Doe"and we will create a username and password. Under the "_ADMINS" folder, we will right click in "Jane Doe"->properties->member of->add->*type* "domain admins"->apply->ok
-</p>
-<br />
-
-<p>
-<img src="https://i.imgur.com/35oYUlC.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-We will logoff DC-1 VM, and connect back in using the username created for Jane Doe.
+We will connect to Client-1's machine with the username that we chose from the "_EMPLOYEES" organizatonal unit from DC-1. Our username will be "mydomain.com\[username]" and our generic password was "Password1". When we successfully login, we can go to the command line an type "whoami" just to confirm we are logged in as a new user.
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/be6Of4Q.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/rc3gvv7.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
-Next, we are going to join Client-1 to DC-1's domain. We will go to Azure and find DC-1's private IP address->go to Cllient-1->Networking->*click* network interface->DNS Servers->Custom->*paste* DC-1's private IP address->save.
-</p>
-<br />
-
-<p>
-<img src="https://i.imgur.com/pJwkEdR.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-From Azure, we are going to restart Client-1 and log back in. Go to settings->system->about->rename this PC(advance)->change->*click* domain and write "mydomain.com" enter Jane Doe's username and password for permission to join domain. Then, the machine will need to restart.
-</p>
-<br />
-
-<p>
-<img src="https://i.imgur.com/pJwkEdR.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-We will login to Client-1 as mydomain.com\jane_admin. We will allow "domain users" access to remote desktop.
+We can use Active Directory to unlock people's accounts if they ever get their account locked. We can choose any user from the "_EMPLOYEES" folder->right click->properties->account->unlock account. You can also reset users' passwords by right clicking on their name->reset password
 </p>
 <br />
